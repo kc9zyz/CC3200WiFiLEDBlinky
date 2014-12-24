@@ -1,33 +1,38 @@
 package com.kc9zyz.cc3200wifiledblinky;
 
+import android.annotation.TargetApi;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
-import android.support.v7.app.ActionBarActivity;
+import android.os.Build;
 import android.os.Bundle;
-import android.text.format.Formatter;
+import android.os.StrictMode;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
+import android.widget.TextView;
 
 import org.apache.http.HttpResponse;
-
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-
 import java.io.IOException;
-import java.net.InetAddress;
 
 
 public class MainActivity extends ActionBarActivity {
+    private String deviceURI;
+    private TextView mText;
 
+    @TargetApi(Build.VERSION_CODES.GINGERBREAD)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+
+        StrictMode.setThreadPolicy(policy);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        EditText mEdit   = (EditText)findViewById(R.id.editText);
+        mText = (TextView) findViewById(R.id.textView4);
         WifiManager wifiMgr = (WifiManager) getSystemService(WIFI_SERVICE);
         WifiInfo wifiInfo = wifiMgr.getConnectionInfo();
         int ip = wifiInfo.getIpAddress();
@@ -36,7 +41,7 @@ public class MainActivity extends ActionBarActivity {
                 (ip & 0xff),
                 (ip >> 8 & 0xff),
                 (ip >> 16 & 0xff));
-        mEdit.setText(ipString);
+        mText.setText(ipString);
     }
 
 
@@ -61,9 +66,9 @@ public class MainActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
-    public void scanIP(View view)
-    {
-        int ipSuffix = 0;
+
+    public void scanIP(View view) {
+        int ipSuffix = 91;
         WifiManager wifiMgr = (WifiManager) getSystemService(WIFI_SERVICE);
         WifiInfo wifiInfo = wifiMgr.getConnectionInfo();
         int ip = wifiInfo.getIpAddress();
@@ -74,14 +79,22 @@ public class MainActivity extends ActionBarActivity {
                 (ip >> 16 & 0xff));
 
         HttpClient client = new DefaultHttpClient();
-         while(ipSuffix < 256) {
-             try {
-                 HttpPost post = new HttpPost(ipString + ipSuffix);
-                 HttpResponse response = client.execute(post);
+        while (ipSuffix < 256) {
+            try {
+                HttpGet get = new HttpGet("http://" + ipString + ipSuffix + "/led_demo.html");
+                // HttpGet get = new HttpGet("http://192.168.1.93/led_demo.html");
+                HttpResponse response = client.execute(get);
+                if (response.getStatusLine().getStatusCode() == 200) {
+                    deviceURI = "http://" + ipString + ipSuffix;
+                    mText.setText(deviceURI);
+                    break;
+                } else
+                    ipSuffix++;
 
-             } catch (IOException e) {
-                 ipSuffix++;
-             }
-         }
+
+            } catch (IOException e) {
+                ipSuffix++;
+            }
+        }
     }
 }

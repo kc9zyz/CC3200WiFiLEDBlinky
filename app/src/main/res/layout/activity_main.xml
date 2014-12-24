@@ -15,19 +15,6 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/editText"
-        android:layout_below="@+id/textView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:autoText="false"
-        android:inputType="textUri"
-        android:text="@string/Default_IP"
-        android:editable="false"
-        android:selectAllOnFocus="false" />
-
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -42,32 +29,32 @@
         android:layout_height="wrap_content"
         android:text="@string/Scan_For_Address"
         android:id="@+id/button2"
-        android:layout_below="@+id/editText"
+        android:onClick="scanIP"
+        android:layout_below="@+id/textView4"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:onClick="scanIP" />
+        android:layout_alignParentStart="true" />
 
     <ToggleButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/Red_Toggle"
         android:id="@+id/toggleButton"
-        android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:checked="false"
-        android:enabled="false" />
+        android:enabled="false"
+        android:layout_below="@+id/textView2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <ToggleButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/Green_Toggle"
         android:id="@+id/toggleButton2"
-        android:layout_alignTop="@+id/toggleButton"
-        android:layout_alignRight="@+id/editText"
-        android:layout_alignEnd="@+id/editText"
         android:checked="false"
-        android:enabled="false" />
+        android:enabled="false"
+        android:layout_below="@+id/textView3"
+        android:layout_alignLeft="@+id/textView3"
+        android:layout_alignStart="@+id/textView3" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -75,10 +62,10 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/red_LED"
         android:id="@+id/textView2"
-        android:layout_above="@+id/toggleButton"
+        android:enabled="false"
+        android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:enabled="false" />
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -86,9 +73,19 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/green_LED"
         android:id="@+id/textView3"
-        android:layout_above="@+id/toggleButton2"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:enabled="false" />
+        android:enabled="false"
+        android:layout_centerVertical="true"
+        android:layout_alignRight="@+id/textView4"
+        android:layout_alignEnd="@+id/textView4" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/Default_IP"
+        android:id="@+id/textView4"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>
