@@ -4,5 +4,12 @@
     <string name="app_name">CC3200 WiFi LED Blinky</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="Default_IP">0.0.0.0</string>
+    <string name="Scan_For_Address">Scan For Address</string>
+    <string name="Input_Address">Input Address</string>
+    <string name="red_LED">Red LED</string>
+    <string name="green_LED">Green LED</string>
+    <string name="Red_Toggle">RedToggle</string>
+    <string name="Green_Toggle">GreenToggle</string>
 
 </resources>
