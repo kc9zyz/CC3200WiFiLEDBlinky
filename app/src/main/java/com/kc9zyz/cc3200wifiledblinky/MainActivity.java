@@ -16,6 +16,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.client.config.RequestConfig;
 
 import java.io.IOException;
 
@@ -83,6 +84,14 @@ public class MainActivity extends ActionBarActivity {
             try {
                 HttpGet get = new HttpGet("http://" + ipString + ipSuffix + "/led_demo.html");
                 // HttpGet get = new HttpGet("http://192.168.1.93/led_demo.html");
+                RequestConfig Default = RequestConfig.DEFAULT;
+                RequestConfig requestConfig = RequestConfig.copy(Default)
+                        .setSocketTimeout(50)
+                        .setConnectTimeout(50)
+                        .setConnectionRequestTimeout(50)
+                        .build();
+                get.setConfig(requestConfig);
+                
                 HttpResponse response = client.execute(get);
                 if (response.getStatusLine().getStatusCode() == 200) {
                     deviceURI = "http://" + ipString + ipSuffix;
