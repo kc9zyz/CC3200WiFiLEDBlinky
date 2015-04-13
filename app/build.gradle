@@ -1,21 +1,33 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'kc9zyz'
+            keyPassword 'primlane'
+            storeFile file('/Users/Bill/AndroidStudioProjects/keyStore.jks')
+            storePassword 'primlane'
+        }
+    }
     compileSdkVersion 21
     buildToolsVersion "21.1.2"
-
     defaultConfig {
         applicationId "com.kc9zyz.cc3200wifiledblinky"
         minSdkVersion 8
         targetSdkVersion 21
         versionCode 1
         versionName "1.0"
+        signingConfig signingConfigs.config
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+            zipAlignEnabled true
         }
+    }
+    productFlavors {
     }
 }
 
